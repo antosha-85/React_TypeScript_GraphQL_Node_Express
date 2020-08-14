@@ -17,7 +17,7 @@ app.get("/listings", (_req, res) => {
 });
 //delete-listing
 app.post("/delete-listing", (req, res) => {
-  const id: string = req.body.id;
+  const id:string = req.body.id;
   for (let i = 0; i < listings.length; i++) {
     if (listings[i].id === id) {
       return res.send(listings.splice(i, 1));
@@ -28,5 +28,5 @@ app.post("/delete-listing", (req, res) => {
 console.log(`[app]: htpp://localhost:${port}`);
 
 app.listen(port, () => {
-  // console.log(`Hey people! My app is listening on port ${port}!`);
+  console.log(`Hey people! My app is listening on port ${port}!`);
 });
