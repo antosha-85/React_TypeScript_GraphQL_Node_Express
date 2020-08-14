@@ -1,5 +1,5 @@
 {
-    "name": "typescript_react_GraphQL",
+    "name": "typescript_react_graphql",
     "version": "1.0.0",
     "dependencies": {
         "express": "^4.17.1"
@@ -16,6 +16,7 @@
     },
     "scripts": {
         "start": "nodemon src/index.ts",
-        "build": "tsc -p ./"
+        "build": "tsc -p ./",
+        "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
     }
 }
