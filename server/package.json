@@ -23,6 +23,8 @@
     "scripts": {
         "start": "nodemon src/index.ts",
         "build": "tsc -p ./",
-        "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+        "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+        "seed": "ts-node temp/seed.ts"
+
     }
 }
