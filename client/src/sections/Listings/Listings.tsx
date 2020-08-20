@@ -25,7 +25,7 @@ export const Listings = ({ title }: Props) => {
   const fetchListings = async() => {
     const { data } = await server.fetch({ query: LISTINGS });
     console.log(data); // check the console to see the listings data from our GraphQL Request!
-  };
+  }
 
   return (
     <div>
