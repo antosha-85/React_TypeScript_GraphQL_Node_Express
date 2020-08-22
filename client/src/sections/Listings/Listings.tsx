@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { server } from "../../lib/api/server";
+import React from "react";
+import {useQuery, server} from '../../lib/api/index'
 import {
   ListingsData,
   DeleteListingData,
@@ -34,17 +34,18 @@ interface Props {
 }
 
 export const Listings = ({ title }: Props) => {
-  const [listings, setListings] = useState<Listing[] | null>(null);
+  const {data} = useQuery<ListingsData>(LISTINGS)
+  // const [listings, setListings] = useState<Listing[] | null>(null);
 
-  useEffect(() => {
-    fetchListings();
-  }, []);
+  // useEffect(() => {
+  //   fetchListings();
+  // }, []);
 
-  const fetchListings = async () => {
-    const { data } = await server.fetch<ListingsData>({ query: LISTINGS });
-    console.log(data.listings);
-    setListings(data.listings); // check the console to see the listings data from our GraphQL Request!
-  };
+  // const fetchListings = async () => {
+  //   const { data } = await server.fetch<ListingsData>({ query: LISTINGS });
+  //   console.log(data.listings);
+  //   setListings(data.listings); // check the console to see the listings data from our GraphQL Request!
+  // };
   const deleteListing = async (id: string) => {
     await server.fetch<DeleteListingData, DeleteListingVariables>({
       query: DELETE_LISTING,
@@ -52,8 +53,10 @@ export const Listings = ({ title }: Props) => {
         id,
       },
     });
-    fetchListings();
+    // fetchListings();
   };
+
+  const listings = data ? data.listings : null
   const listingsList = listings ? (
     <ul>
       {listings.map((listing) => {
