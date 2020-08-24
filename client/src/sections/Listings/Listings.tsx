@@ -36,6 +36,8 @@ interface Props {
 export const Listings = ({ title }: Props) => {
   const {data, loading, error, refetch} = useQuery<ListingsData>(LISTINGS)
 
+  // const [deleteListing, {loading, error}] = useMutation(DELETE_LISTING)
+
   const deleteListing = async (id: string) => {
     await server.fetch<DeleteListingData, DeleteListingVariables>({
       query: DELETE_LISTING,
