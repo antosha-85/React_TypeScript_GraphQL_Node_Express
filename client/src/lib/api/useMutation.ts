@@ -6,8 +6,12 @@ interface State<TData> {
   loading: boolean;
   error: boolean;
 }
+type MutationTuple<TData, TVariables> = [
+  (variables?: TVariables | undefined) => Promise<void>,
+  State<TData>
+];
 
-export const useMutation = <TData = any, TVariables = any>(query: string) => {
+export const useMutation = <TData = any, TVariables = any>(query: string): MutationTuple<TData, TVariables> => {
   const [state, setState] = useState<State<TData>>({
     data: null,
     loading: false,
@@ -24,10 +28,10 @@ export const useMutation = <TData = any, TVariables = any>(query: string) => {
         throw new Error(errors[0].message);
       }
       setState({ data: data, loading: false, error: false });
-    } catch(err) {
+    } catch (err) {
       setState({ data: null, loading: false, error: true });
-      throw console.error(err)
+      throw console.error(err);
     }
   };
-  return [fetch, state]
+  return [fetch, state];
 };
