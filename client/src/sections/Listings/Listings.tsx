@@ -1,21 +1,16 @@
 import React from "react";
 import { gql } from "apollo-boost";
+import { useQuery, useMutation } from "react-apollo";
+import { Listings as ListingsData } from "./__generated__/Listings";
+import {
+  DeleteListing as DeleteListingData,
+  DeleteListingVariables
+} from "./__generated__/DeleteListing";
 // import {
-//   useQuery,
-//   useMutation,
-//   // server
-// } from "../../lib/api/index";
-import {
-  useQuery,
-  useMutation,
-  // server
-} from "react-apollo";
-import {
-  ListingsData,
-  DeleteListingData,
-  DeleteListingVariables,
-  // Listing,
-} from "./types";
+//   ListingsData,
+//   DeleteListingData,
+//   DeleteListingVariables,
+// } from "./types";
 const LISTINGS = gql`
   query Listings {
     listings {
@@ -52,12 +47,6 @@ export const Listings = ({ title }: Props) => {
   ] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTING);
 
   const handleDeleteListing = async (id: string) => {
-    // await server.fetch<DeleteListingData, DeleteListingVariables>({
-    //   query: DELETE_LISTING,
-    //   variables: {
-    //     id,
-    //   },
-    // });
     await deleteListing({ variables: { id } });
     refetch();
   };
