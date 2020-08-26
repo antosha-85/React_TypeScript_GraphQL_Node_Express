@@ -1,13 +1,14 @@
 import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "react-apollo";
-import List from 'antd/es/list'
+import List from "antd/es/list";
+import Avatar from "antd/es/avatar";
 // import {List} from 'antd'
-import './styles/Listings.css'
+import "./styles/Listings.css";
 import { Listings as ListingsData } from "./__generated__/Listings";
 import {
   DeleteListing as DeleteListingData,
-  DeleteListingVariables
+  DeleteListingVariables,
 } from "./__generated__/DeleteListing";
 
 const LISTINGS = gql`
@@ -65,16 +66,20 @@ export const Listings = ({ title }: Props) => {
     //   })}
     // </ul>
     <List
-    itemLayout="horizontal"
-    dataSource={listings}
-    renderItem={(listing)=> (
-      <List.Item>
-        <List.Item.Meta title={listing.title}/>
-      </List.Item>
-    )}/>
-
-    // </List>
-  ) : null;
+      itemLayout="vertical"
+      dataSource={listings}
+      renderItem={(listing) => (
+        <List.Item>
+          <List.Item.Meta
+            title={listing.title}
+            description={listing.address}
+            avatar={<Avatar src={listing.image} shape="square" size={48}/>}
+          />
+        </List.Item>
+      )}
+    />
+  ) : // </List>
+  null;
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -89,7 +94,7 @@ export const Listings = ({ title }: Props) => {
     <h4>Uh oh! Something went wrong with deleting - please try again later!</h4>
   ) : null;
   return (
-    <div className='listings'>
+    <div className="listings">
       <h2>{title}</h2>
       {listingsList}
       {deleteListingLoadingMessage}
