@@ -1,16 +1,14 @@
 import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "react-apollo";
+import List from 'antd/es/list'
+// import {List} from 'antd'
 import { Listings as ListingsData } from "./__generated__/Listings";
 import {
   DeleteListing as DeleteListingData,
   DeleteListingVariables
 } from "./__generated__/DeleteListing";
-// import {
-//   ListingsData,
-//   DeleteListingData,
-//   DeleteListingVariables,
-// } from "./types";
+
 const LISTINGS = gql`
   query Listings {
     listings {
@@ -53,18 +51,28 @@ export const Listings = ({ title }: Props) => {
 
   const listings = data ? data.listings : null;
   const listingsList = listings ? (
-    <ul>
-      {listings.map((listing) => {
-        return (
-          <li key={listing.id}>
-            {listing.title}
-            <button onClick={() => handleDeleteListing(listing.id)}>
-              Delete
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+    // <ul>
+    //   {listings.map((listing) => {
+    //     return (
+    //       <li key={listing.id}>
+    //         {listing.title}
+    //         <button onClick={() => handleDeleteListing(listing.id)}>
+    //           Delete
+    //         </button>
+    //       </li>
+    //     );
+    //   })}
+    // </ul>
+    <List
+    itemLayout="horizontal"
+    dataSource={listings}
+    renderItem={(listing)=> (
+      <List.Item>
+        <List.Item.Meta title={listing.title}/>
+      </List.Item>
+    )}/>
+
+    // </List>
   ) : null;
   if (loading) {
     return <h2>Loading...</h2>;
