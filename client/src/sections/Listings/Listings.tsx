@@ -6,7 +6,7 @@ import Avatar from "antd/es/avatar";
 import { Button, Spin } from "antd";
 import "./styles/Listings.css";
 import { Listings as ListingsData } from "./__generated__/Listings";
-import {ListingsSkeleton} from './components'
+import { ListingsSkeleton } from "./components";
 import {
   DeleteListing as DeleteListingData,
   DeleteListingVariables,
@@ -81,10 +81,10 @@ export const Listings = ({ title }: Props) => {
   if (loading) {
     // return <h2>Loading...</h2>;
     return (
-    <div>
-
-      <ListingsSkeleton/>)
-      </div>)
+      <div className="listings">
+        <ListingsSkeleton title={title} />)
+      </div>
+    );
   }
   if (error) {
     return <h2>Uh oh! Something went wrong! Please try again later:(</h2>;
