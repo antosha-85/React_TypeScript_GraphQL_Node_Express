@@ -66,10 +66,10 @@ export const Listings = ({ title }: Props) => {
     //   })}
     // </ul>
     <List
-      itemLayout="vertical"
+      itemLayout="horizontal"
       dataSource={listings}
       renderItem={(listing) => (
-        <List.Item actions={[<Button onClick={()=> handleDeleteListing(listing.id)}>Delete</Button>]}>
+        <List.Item actions={[<Button type='primary' onClick={()=> handleDeleteListing(listing.id)}>Delete</Button>]}>
           <List.Item.Meta
             title={listing.title}
             description={listing.address}
