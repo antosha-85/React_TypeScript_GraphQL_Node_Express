@@ -3,6 +3,7 @@ import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "react-apollo";
 import List from 'antd/es/list'
 // import {List} from 'antd'
+import './styles/Listings.css'
 import { Listings as ListingsData } from "./__generated__/Listings";
 import {
   DeleteListing as DeleteListingData,
@@ -88,7 +89,7 @@ export const Listings = ({ title }: Props) => {
     <h4>Uh oh! Something went wrong with deleting - please try again later!</h4>
   ) : null;
   return (
-    <div>
+    <div className='listings'>
       <h2>{title}</h2>
       {listingsList}
       {deleteListingLoadingMessage}
