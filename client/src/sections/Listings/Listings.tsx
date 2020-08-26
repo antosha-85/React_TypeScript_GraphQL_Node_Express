@@ -3,7 +3,7 @@ import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "react-apollo";
 import List from "antd/es/list";
 import Avatar from "antd/es/avatar";
-// import {List} from 'antd'
+import {Button} from 'antd'
 import "./styles/Listings.css";
 import { Listings as ListingsData } from "./__generated__/Listings";
 import {
@@ -69,7 +69,7 @@ export const Listings = ({ title }: Props) => {
       itemLayout="vertical"
       dataSource={listings}
       renderItem={(listing) => (
-        <List.Item>
+        <List.Item actions={[<Button onClick={()=> handleDeleteListing(listing.id)}>Delete</Button>]}>
           <List.Item.Meta
             title={listing.title}
             description={listing.address}
