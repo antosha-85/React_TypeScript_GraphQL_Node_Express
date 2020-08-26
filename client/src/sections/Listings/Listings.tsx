@@ -82,7 +82,7 @@ export const Listings = ({ title }: Props) => {
     // return <h2>Loading...</h2>;
     return (
       <div className="listings">
-        <ListingsSkeleton title={title} />)
+        <ListingsSkeleton title={title} />
       </div>
     );
   }
