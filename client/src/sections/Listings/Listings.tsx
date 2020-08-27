@@ -3,7 +3,7 @@ import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "react-apollo";
 import List from "antd/es/list";
 import Avatar from "antd/es/avatar";
-import { Button, Spin } from "antd";
+import { Alert, Button, Spin } from "antd";
 import "./styles/Listings.css";
 import { Listings as ListingsData } from "./__generated__/Listings";
 import { ListingsSkeleton } from "./components";
@@ -87,22 +87,25 @@ export const Listings = ({ title }: Props) => {
     );
   }
   if (error) {
-    return <h2>Uh oh! Something went wrong! Please try again later:(</h2>;
+    return (
+      <div className="listings">
+        <ListingsSkeleton title={title} error />
+      </div>
+    );
   }
 
   // const deleteListingLoadingMessage = deleteListingLoading ? (
   //   <h4>Deletion in progress ...</h4>
   // ) : null;
-  const deleteListingErrorMessage = deleteListingError ? (
-    <h4>Uh oh! Something went wrong with deleting - please try again later!</h4>
-  ) : null;
+  const deleteListingErrorAlert = deleteListingError ?  <Alert className='listings__alert' type='error' message="Uh oh! Something went wrong! Please try again later:(" /> : null;
   return (
     <div className="listings">
       <Spin spinning={deleteListingLoading}>
+        {deleteListingErrorAlert}
         <h2>{title}</h2>
         {listingsList}
         {/* {deleteListingLoadingMessage} */}
-        {deleteListingErrorMessage}
+        {/* {deleteListingErrorMessage} */}
       </Spin>
     </div>
   );
