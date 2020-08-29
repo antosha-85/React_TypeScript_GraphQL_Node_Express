@@ -11,11 +11,20 @@ export interface Listing {
   // numOfBaths: number;
   // rating: number;
 }
- export interface Booking {
-   _id: ObjectId;
- }
-export interface User {
+export interface Booking {
   _id: ObjectId;
+}
+export interface User {
+  _id: string;
+  token: string;
+  name: string;
+  avatar: string;
+  contact: string;
+  walletId?: string;
+  income: number;
+  bookings: ObjectId[];
+  listings: ObjectId[];
+  
 }
 export interface Database {
   bookings: Collection<Booking>;
