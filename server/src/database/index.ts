@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import {Database} from '../lib/types'
+import {Database, User} from '../lib/types'
 
 const url = `mongodb+srv://${process.env.USER}:${process.env.DB_PASSWORD}@${process.env.CLUSTER}.mongodb.net`;
 export const connectDatabase = async ():Promise<Database> => {
@@ -10,5 +10,6 @@ export const connectDatabase = async ():Promise<Database> => {
   const db = client.db("main");
   return {
     listings: db.collection(`${process.env.DB_NAME}`),
+    users: db.collection<User>('users'),
   };
 };

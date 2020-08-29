@@ -1,4 +1,4 @@
-import {ObjectId, Collection} from 'mongodb'
+import { ObjectId, Collection } from "mongodb";
 
 export interface Listing {
   _id: ObjectId;
@@ -8,15 +8,17 @@ export interface Listing {
   price: number;
   numOfGuests: number;
   numOfBeds: number;
-  numOfBaths: number,
+  numOfBaths: number;
   rating: number;
 }
 
-export interface Database {
-listings: Collection<Listing>;
+export interface User {
+  _id: ObjectId;
 }
-
-
+export interface Database {
+  listings: Collection<Listing>;
+  users: Collection<User>;
+}
 
 // ---
 
