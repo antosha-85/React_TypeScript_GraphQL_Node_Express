@@ -53,17 +53,3 @@ export interface Database {
   listings: Collection<Listing>;
   users: Collection<User>;
 }
-
-// ---
-
-// interface IdentityObj<T = any> {
-//     field: T;
-// }
-// const identity = <T = any >(arg:T ): T=> {
-//     const obj: IdentityObj<T> = {
-//         field: arg,
-//     }
-//     return obj.field
-// }
-// identity<number>(5)
-// identity<string>('5')
