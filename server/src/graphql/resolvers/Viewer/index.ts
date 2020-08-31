@@ -1,9 +1,14 @@
 import { IResolvers } from "apollo-server-express";
+import { Google } from "../../../lib/api";
 import { Viewer } from "../../../lib/types";
 export const viewerResolvers: IResolvers = {
   Query: {
-    authUrl: () => {
-      return "Query.authUrl";
+    authUrl: ():string => {
+      try {
+        return Google.authUrl;
+      } catch (err) {
+        throw new Error(`Failed to query Google Auth Url: ${err}`);
+      }
     },
   },
   Mutation: {
