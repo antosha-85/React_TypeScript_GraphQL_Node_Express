@@ -6,8 +6,8 @@ export const typeDefs = gql`
     id: ID
     token: String
     avatar: String
-    hasWallet: boolean
-    didRequest: boolean!
+    hasWallet: Boolean
+    didRequest: Boolean!
   }
   # create a new input object to contain a required code
   input LogInInput {
