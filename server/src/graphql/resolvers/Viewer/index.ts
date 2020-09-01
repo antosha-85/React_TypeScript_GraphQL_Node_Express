@@ -38,32 +38,37 @@ const logInViaGoodle = async (
   if (!userId || !userName || !userAvatar || !userEmail) {
     throw new Error("Google login error");
   }
-  const updateRes = await db.users.findOneAndUpdate({
-    _id: userId,
-    }, { $set: {
-      name: userName,
-      avatar: userAvatar,
-      contact: userEmail,
-      token,
-    }},
-    {returnOriginal: false})
-
-    let viewer = updateRes.value
-
-    if(!viewer) {
-      const insertResult = await db.users.insertOne({
-        _id: userId,
+  const updateRes = await db.users.findOneAndUpdate(
+    {
+      _id: userId,
+    },
+    {
+      $set: {
         name: userName,
         avatar: userAvatar,
         contact: userEmail,
         token,
-        income: 0,
-        bookings: [],
-        listings: []
-      })
-      viewer = insertResult.ops[0]
-    }
-    return viewer
+      },
+    },
+    { returnOriginal: false }
+  );
+
+  let viewer = updateRes.value;
+
+  if (!viewer) {
+    const insertResult = await db.users.insertOne({
+      _id: userId,
+      name: userName,
+      avatar: userAvatar,
+      contact: userEmail,
+      token,
+      income: 0,
+      bookings: [],
+      listings: [],
+    });
+    viewer = insertResult.ops[0];
+  }
+  return viewer;
 };
 export const viewerResolvers: IResolvers = {
   Query: {
@@ -80,7 +85,7 @@ export const viewerResolvers: IResolvers = {
       _root: undefined,
       { input }: LogInArgs,
       { db }: { db: Database }
-    ):Promise<Viewer> => {
+    ): Promise<Viewer> => {
       try {
         const code = input ? input.code : null;
         const token = crypto.randomBytes(16).toString("hex");
@@ -101,8 +106,12 @@ export const viewerResolvers: IResolvers = {
         throw new Error(`Failed to login: ${err}`);
       }
     },
-    logOut: () => {
-      return "Mutation.logOut";
+    logOut: (): Viewer => {
+      try {
+        return { didRequest: true };
+      } catch (err) {
+        throw new Error(`Failed to log out: ${err}`);
+      }
     },
   },
   Viewer: {
