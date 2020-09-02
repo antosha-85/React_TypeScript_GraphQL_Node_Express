@@ -1,14 +1,16 @@
 import React from "react";
 import { Card, Layout, Typography } from "antd";
-
+import { Viewer } from "../../lib/types";
 // Image Assets
 import googleLogo from "./assets/google_logo.jpg";
 // const googleLogo = require("./assets/google_logo.jpg") ;
-
+interface Props {
+  setViewer: (viewer: Viewer) => void;
+}
 const { Content } = Layout;
 const { Text, Title } = Typography;
 
-export const Login = () => {
+export const Login = ({setViewer}: Props) => {
   return (
     <Content className="log-in">
       <Card className="log-in-card">
