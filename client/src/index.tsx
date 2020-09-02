@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ApolloClient from "apollo-boost";
@@ -13,14 +13,22 @@ import {
   User,
   Login,
 } from "./sections";
+import { Viewer } from "./lib/types";
 import * as serviceWorker from "./serviceWorker";
 import "./styles/index.css";
 
 const client = new ApolloClient({
   uri: "/api",
 });
-
+const initialViewer: Viewer = {
+  id: null,
+  token: null,
+  avatar: null,
+  hasWallet: null,
+  didRequest: false,
+};
 const App = () => {
+  const [viewer, setViewer] = useState<Viewer>(initialViewer)
   return (
     <Router>
       <Layout id="app">
