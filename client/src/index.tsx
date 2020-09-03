@@ -48,7 +48,6 @@ const App = () => {
 render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      {/* <Listings title="Listings" /> */}
       <App />
     </ApolloProvider>
   </React.StrictMode>,
