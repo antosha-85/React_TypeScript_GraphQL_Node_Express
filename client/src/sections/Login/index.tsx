@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import { Card, Layout, Typography } from "antd";
 import { LOG_IN } from "../../lib/graphql/mutations";
@@ -25,15 +25,15 @@ export const Login = ({ setViewer }: Props) => {
     logIn,
     { data: LogInData, loading: logInLoading, error: logInError },
   ] = useMutation<LogInData, LogInVariables>(LOG_IN);
-
+  const logInRef = useRef(logIn);
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code");
-    if(code) {
-      logIn({
+    if (code) {
+      logInRef.current({
         variables: {
-          input: { code }
-        }
-      })
+          input: { code },
+        },
+      });
     }
   }, []);
   const handleAuthorize = async () => {
