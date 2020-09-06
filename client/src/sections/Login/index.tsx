@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
-import { Card, Layout, Typography } from "antd";
+import { Card, Layout, Spin, Typography } from "antd";
 import { LOG_IN } from "../../lib/graphql/mutations";
 import { AUTH_URL } from "../../lib/graphql/queries";
 import {
@@ -24,7 +24,13 @@ export const Login = ({ setViewer }: Props) => {
   const [
     logIn,
     { data: LogInData, loading: logInLoading, error: logInError },
-  ] = useMutation<LogInData, LogInVariables>(LOG_IN);
+  ] = useMutation<LogInData, LogInVariables>(LOG_IN, {
+    onCompleted: (data) => {
+      if (data && data.logIn) {
+        setViewer(data.logIn);
+      }
+    },
+  });
   const logInRef = useRef(logIn);
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code");
@@ -45,6 +51,13 @@ export const Login = ({ setViewer }: Props) => {
       window.location.href = data.authUrl;
     } catch (err) {}
   };
+  if (logInLoading) {
+    return (
+      <Content className="log-in">
+        <Spin size="large" tip="Loggin you in..." />
+      </Content>
+    )
+  }
   return (
     <Content className="log-in">
       <Card className="log-in-card">
