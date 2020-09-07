@@ -13,3 +13,7 @@ export const displaySuccessNotification = (
     }
   });
 };
+
+export const displayErrorMessage = (error: string) => {
+    return message.error(error);
+}
