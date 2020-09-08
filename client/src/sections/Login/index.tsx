@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Redirect } from "react-router-dom";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import { Card, Layout, Spin, Typography } from "antd";
 import { ErrorBanner } from "../../lib/components";
@@ -28,7 +29,7 @@ export const Login = ({ setViewer }: Props) => {
   const client = useApolloClient();
   const [
     logIn,
-    { data: LogInData, loading: logInLoading, error: logInError },
+    { data: logInData, loading: logInLoading, error: logInError },
   ] = useMutation<LogInData, LogInVariables>(LOG_IN, {
     onCompleted: (data) => {
       if (data && data.logIn) {
@@ -67,6 +68,10 @@ export const Login = ({ setViewer }: Props) => {
         <Spin size="large" tip="Loggin you in..." />
       </Content>
     );
+  }
+  if (logInData && logInData.logIn) {
+    const { id: viewerId } = logInData.logIn;
+    return <Redirect to={`/user/${viewerId}`} />;
   }
   const logInErrorBanner = logInError ? (
     <ErrorBanner description="Sorry! We were not able to log you in. Please try again later!" />
