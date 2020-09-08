@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import { Card, Layout, Spin, Typography } from "antd";
-import {ErrorBanner} from '../../lib/components'
+import { ErrorBanner } from "../../lib/components";
 import { LOG_IN } from "../../lib/graphql/mutations";
 import { AUTH_URL } from "../../lib/graphql/queries";
 import {
@@ -9,7 +9,10 @@ import {
   LogInVariables,
 } from "../../lib/graphql/mutations/LogIn/__generated__/LogIn";
 import { AuthUrl as AuthUrlData } from "../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl";
-import {displayErrorMessage, displaySuccessNotification} from '../../lib/utils'
+import {
+  displayErrorMessage,
+  displaySuccessNotification,
+} from "../../lib/utils";
 import { Viewer } from "../../lib/types";
 // Image Assets
 import googleLogo from "./assets/google_logo.jpg";
@@ -30,7 +33,7 @@ export const Login = ({ setViewer }: Props) => {
     onCompleted: (data) => {
       if (data && data.logIn) {
         setViewer(data.logIn);
-        displaySuccessNotification("You've successfully logged in!")
+        displaySuccessNotification("You've successfully logged in!");
       }
     },
   });
@@ -53,7 +56,9 @@ export const Login = ({ setViewer }: Props) => {
       //redirecting to that address
       window.location.href = data.authUrl;
     } catch (err) {
-      displayErrorMessage("Sorry! We were not able to log you in. Please try again later!")
+      displayErrorMessage(
+        "Sorry! We were not able to log you in. Please try again later!"
+      );
     }
   };
   if (logInLoading) {
@@ -61,10 +66,14 @@ export const Login = ({ setViewer }: Props) => {
       <Content className="log-in">
         <Spin size="large" tip="Loggin you in..." />
       </Content>
-    )
+    );
   }
+  const logInErrorBanner = logInError ? (
+    <ErrorBanner description="Sorry! We were not able to log you in. Please try again later!" />
+  ) : null;
   return (
     <Content className="log-in">
+      {logInErrorBanner}
       <Card className="log-in-card">
         <div className="log-in-card__intro">
           <Title level={3} className="log-in-card__intro-title">
