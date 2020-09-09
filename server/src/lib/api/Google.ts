@@ -13,7 +13,7 @@ export const Google = {
     scope: [
       "https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",
-    ],
+    ]
   }),
   //function that gets tokens
   logIn: async (code: string) => {
@@ -23,7 +23,7 @@ export const Google = {
     // getting user information by running people constructor
     const { data } = await google.people({ version: "v1", auth }).people.get({
       resourceName: "people/me",
-      personFields: "emailAdresses,names,photos",
+      personFields: "emailAddresses,names,photos",
     });
     return { user: data };
   },
