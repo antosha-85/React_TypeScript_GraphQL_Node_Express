@@ -2,13 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Menu } from "antd";
 import { Icon } from '@ant-design/compatible';
+import {Viewer} from '../../../../lib/types'
+interface Props {
+    viewer: Viewer;
+}
 // import Icon from '@ant-design/icons';
 // import Icon from "../../../../../node_modules/@ant-design/icons/lib";
-import {
-    HomeOutlined,
-     } from '@ant-design/icons';
+// import {
+//     HomeOutlined,
+//      } from '@ant-design/icons';
 const { Item, SubMenu } = Menu;
-export const MenuItems = () => {
+export const MenuItems = ({viewer}: Props) => {
   return (
     <Menu mode="horizontal" selectable={false} className="menu">
       <Item key="/host">

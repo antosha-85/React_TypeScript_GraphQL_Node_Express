@@ -2,12 +2,15 @@ import React from "react";
 import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import { MenuItems } from "./components";
+import { Viewer } from "../../lib/types";
 
 import logo from "./assets/anton-logo.png";
-
 const { Header } = Layout;
+interface Props {
+  viewer: Viewer;
+}
 
-export const AppHeader = () => {
+export const AppHeader = ({viewer}: Props) => {
   return (
     <Header className="app-header">
       <div className="app-header__logo-search-section">
@@ -18,7 +21,7 @@ export const AppHeader = () => {
         </div>
       </div>
       <div className="app-header__menu-section">
-        <MenuItems />
+        <MenuItems viewer={viewer}/>
       </div>
     </Header>
   );
